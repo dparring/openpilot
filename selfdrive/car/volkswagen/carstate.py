@@ -52,14 +52,24 @@ class CarState(CarStateBase):
       brake_pedal_pressed = bool(pt_cp.vl["Motor_03"]["MO_Fahrer_bremst"])
       ret.espDisabled = pt_cp.vl["ESP_01"]["ESP_Tastung_passiv"] != 0
 
-      # TODO: find gearshift signal
+      # TODO: find gearshift signal for manual/EV cars (are there any on this platform?)
       ret.gearShifter = GearShifter.drive
+      if trans_type == TransmissionType.automatic:
+        ret.gearShifter = self.parse_gear_shifter(self.CCP.shifter_values.get(pt_cp.vl["Getriebe_03"]["GE_Waehlhebel"], None))
+      #elif trans_type == TransmissionType.direct:
+      #  ret.gearShifter = self.parse_gear_shifter(self.CCP.shifter_values.get(pt_cp.vl["EV_Gearshift"]["GearPosition"], None))
+      #elif trans_type == TransmissionType.manual:
+      #  ret.clutchPressed = not pt_cp.vl["Motor_14"]["MO_Kuppl_schalter"]
+      #  if bool(pt_cp.vl["Gateway_72"]["BCM1_Rueckfahrlicht_Schalter"]):
+      #    ret.gearShifter = GearShifter.reverse
+      #  else:
+      #    ret.gearShifter = GearShifter.drive
 
       # TODO: this is only present on powertrain
-      #ret.doorOpen = any([pt_cp.vl["Gateway_05"]["FT_Tuer_geoeffnet"],
-      #                    pt_cp.vl["Gateway_05"]["BT_Tuer_geoeffnet"],
-      #                    pt_cp.vl["Gateway_05"]["HL_Tuer_geoeffnet"],
-      #                    pt_cp.vl["Gateway_05"]["HR_Tuer_geoeffnet"]])
+      ret.doorOpen = any([pt_cp.vl["Gateway_05"]["FT_Tuer_geoeffnet"],
+                          pt_cp.vl["Gateway_05"]["BT_Tuer_geoeffnet"],
+                          pt_cp.vl["Gateway_05"]["HL_Tuer_geoeffnet"],
+                          pt_cp.vl["Gateway_05"]["HR_Tuer_geoeffnet"]])
 
       # TODO: is this the instantaneous or the comfort blink signal?
       ret.leftBlinker = bool(pt_cp.vl["Blinkmodi_01"]["BM_links"])
@@ -159,7 +169,7 @@ class CarState(CarStateBase):
 
     # Update seatbelt fastened status.
     # FIXME: disabled for Macan testing
-    #ret.seatbeltUnlatched = pt_cp.vl["Airbag_02"]["AB_Gurtschloss_FA"] != 3
+    ret.seatbeltUnlatched = pt_cp.vl["Airbag_02"]["AB_Gurtschloss_FA"] != 3
 
     # Consume blind-spot monitoring info/warning LED states, if available.
     # Infostufe: BSM LED on, Warnung: BSM LED flashing
