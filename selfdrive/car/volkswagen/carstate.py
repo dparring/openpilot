@@ -377,7 +377,7 @@ class CarState(CarStateBase):
       ("Gateway_05", 10),
       # FIXME: Testing using radar state instead of TSK state for Macan
       #("TSK_02", 33),       # From J623 Engine control module
-      # FIXME: Macan gateway and airbag state on powertrain
+      # FIXME: Macan airbag state on powertrain
       #("Airbag_02", 5),     # From J234 Airbag control module
       #("Gateway_05", 10),   # From J533 CAN gateway (aggregated data)
       ("Kombi_01", 2),      # From J285 Instrument cluster
@@ -397,7 +397,7 @@ class CarState(CarStateBase):
   def get_cam_can_parser_mlb(CP):
     messages = [
       ("ACC_05", 50),  # Macan test: from radar
-      ("Gateway_05", 10),
+      ("Airbag_02", 5),
     ]
 
     if CP.networkLocation == NetworkLocation.fwdCamera:
