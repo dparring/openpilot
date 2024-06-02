@@ -161,7 +161,7 @@ class CarState(CarStateBase):
 
     # Update seatbelt fastened status.
     # FIXME: disabled for Macan testing
-    #ret.seatbeltUnlatched = pt_cp.vl["Airbag_02"]["AB_Gurtschloss_FA"] != 3
+    ret.seatbeltUnlatched = cam_cp.vl["Airbag_02"]["AB_Gurtschloss_FA"] != 3
 
     # Consume blind-spot monitoring info/warning LED states, if available.
     # Infostufe: BSM LED on, Warnung: BSM LED flashing
@@ -397,6 +397,7 @@ class CarState(CarStateBase):
   def get_cam_can_parser_mlb(CP):
     messages = [
       ("ACC_05", 50),  # Macan test: from radar
+      ("Gateway_05", 10),
     ]
 
     if CP.networkLocation == NetworkLocation.fwdCamera:
