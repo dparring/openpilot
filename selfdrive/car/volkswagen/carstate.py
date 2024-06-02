@@ -55,7 +55,7 @@ class CarState(CarStateBase):
       # TODO: find gearshift signal for manual/EV cars (are there any on this platform?)
       ret.gearShifter = GearShifter.drive
       if trans_type == TransmissionType.automatic:
-        ret.gearShifter = self.parse_gear_shifter(self.CCP.shifter_values.get(pt_cp.vl["Getriebe_03"]["GE_Waehlhebel"], None))
+        ret.gearShifter = self.parse_gear_shifter(self.CP.shifter_values.get(pt_cp.vl["Getriebe_03"]["GE_Waehlhebel"], None))
 
       # TODO: this is only present on powertrain
       ret.doorOpen = any([pt_cp.vl["Gateway_05"]["FT_Tuer_geoeffnet"],
