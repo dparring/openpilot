@@ -56,14 +56,6 @@ class CarState(CarStateBase):
       ret.gearShifter = GearShifter.drive
       if trans_type == TransmissionType.automatic:
         ret.gearShifter = self.parse_gear_shifter(self.CCP.shifter_values.get(pt_cp.vl["Getriebe_03"]["GE_Waehlhebel"], None))
-      #elif trans_type == TransmissionType.direct:
-      #  ret.gearShifter = self.parse_gear_shifter(self.CCP.shifter_values.get(pt_cp.vl["EV_Gearshift"]["GearPosition"], None))
-      #elif trans_type == TransmissionType.manual:
-      #  ret.clutchPressed = not pt_cp.vl["Motor_14"]["MO_Kuppl_schalter"]
-      #  if bool(pt_cp.vl["Gateway_72"]["BCM1_Rueckfahrlicht_Schalter"]):
-      #    ret.gearShifter = GearShifter.reverse
-      #  else:
-      #    ret.gearShifter = GearShifter.drive
 
       # TODO: this is only present on powertrain
       ret.doorOpen = any([pt_cp.vl["Gateway_05"]["FT_Tuer_geoeffnet"],
