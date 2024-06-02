@@ -374,6 +374,7 @@ class CarState(CarStateBase):
       ("ESP_02", 50),       # From J104 ABS/ESP controller
       ("ESP_01", 33),       # From J104 ABS/ESP controller
       ("LS_01", 5),         # From J533 CAN gateway (via LIN from steering wheel controls)
+      ("Gateway_05", 10),
       # FIXME: Testing using radar state instead of TSK state for Macan
       #("TSK_02", 33),       # From J623 Engine control module
       # FIXME: Macan gateway and airbag state on powertrain
