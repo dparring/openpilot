@@ -54,7 +54,7 @@ class CarState(CarStateBase):
 
       # TODO: find gearshift signal for manual/EV cars (are there any on this platform?)
       ret.gearShifter = GearShifter.drive
-      if trans_type == TransmissionType.automatic & self.CCP.shifter_values:
+      if trans_type == TransmissionType.automatic:
         ret.gearShifter = self.parse_gear_shifter(self.CCP.shifter_values.get(pt_cp.vl["Getriebe_03"]["GE_Waehlhebel"], None))
 
       # TODO: this is only present on powertrain
@@ -386,7 +386,7 @@ class CarState(CarStateBase):
 
     # gear shift parsing
     if CP.transmissionType == TransmissionType.automatic:
-      messages.append(("Getriebe_03", 20))  # From J743 Auto transmission control module
+      messages.append(("Getriebe_03", 50))  # From J743 Auto transmission control module
 
     # TODO: BSM parsing
 
