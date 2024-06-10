@@ -375,19 +375,15 @@ class CarState(CarStateBase):
       ("ESP_01", 33),       # From J104 ABS/ESP controller
       ("LS_01", 5),         # From J533 CAN gateway (via LIN from steering wheel controls)
       ("Gateway_05", 10),
+      ("Gateway_06", 10),
+      ("Getriebe_03", 50),
       # FIXME: Testing using radar state instead of TSK state for Macan
       #("TSK_02", 33),       # From J623 Engine control module
-      # FIXME: Macan airbag state on powertrain
-      #("Airbag_02", 5),     # From J234 Airbag control module
       #("Gateway_05", 10),   # From J533 CAN gateway (aggregated data)
       ("Kombi_01", 2),      # From J285 Instrument cluster
       ("Blinkmodi_01", 0),  # From J519 BCM (sent at 1Hz when no lights active, 50Hz when active)
       ("Kombi_03", 0),      # From J285 instrument cluster (not present on older cars, 1Hz when present)
     ]
-
-    # gear shift parsing
-    if CP.transmissionType == TransmissionType.automatic:
-      messages.append(("Getriebe_03", 50))  # From J743 Auto transmission control module
 
     # TODO: BSM parsing
 
@@ -397,7 +393,6 @@ class CarState(CarStateBase):
   def get_cam_can_parser_mlb(CP):
     messages = [
       ("ACC_05", 50),  # Macan test: from radar
-      ("Airbag_02", 5),
     ]
 
     if CP.networkLocation == NetworkLocation.fwdCamera:
