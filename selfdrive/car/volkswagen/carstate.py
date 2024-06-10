@@ -53,9 +53,11 @@ class CarState(CarStateBase):
       ret.espDisabled = pt_cp.vl["ESP_01"]["ESP_Tastung_passiv"] != 0
 
       # TODO: find gearshift signal for manual/EV cars (are there any on this platform?)
-      ret.gearShifter = GearShifter.drive
-      if trans_type == TransmissionType.automatic:
-        ret.gearShifter = self.parse_gear_shifter(self.CCP.shifter_values.get(pt_cp.vl["Getriebe_03"]["GE_Waehlhebel"], None))
+      ret.gearShifter = GearShifter.unknown
+      gear = self.CCP.shifter_values.get(pt_cp.vl["Getriebe_03"]["GE_Waehlhebel"], None)
+      if gear is not None and gear.find("Position ") != -1:
+        gear = gear[-1]
+        ret.gearShifter = self.parse_gear_shifter(gear)
 
       # TODO: this is only present on powertrain
       ret.doorOpen = any([pt_cp.vl["Gateway_05"]["FT_Tuer_geoeffnet"],
@@ -160,7 +162,6 @@ class CarState(CarStateBase):
     ret.parkingBrake = bool(pt_cp.vl["Kombi_01"]["KBI_Handbremse"])
 
     # Update seatbelt fastened status.
-    # FIXME: disabled for Macan testing
     ret.seatbeltUnlatched = pt_cp.vl["Gateway_06"]["AB_Gurtschloss_FA"] != 3
 
     # Consume blind-spot monitoring info/warning LED states, if available.
