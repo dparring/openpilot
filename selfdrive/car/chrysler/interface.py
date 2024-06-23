@@ -53,8 +53,8 @@ class CarInterface(CarInterfaceBase):
 
     # Ram
     elif candidate == CAR.RAM_1500_5TH_GEN:
-      ret.steerActuatorDelay = 0.2
-      ret.wheelbase = 3.88
+      ret.steerActuatorDelay = 0.12
+      ret.wheelbase = 3.68
       ret.minSteerSpeed = 0.5
       ret.minEnableSpeed = 14.5
       # Older EPS FW allow steer to zero
