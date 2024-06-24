@@ -108,7 +108,7 @@ class CarControllerParams:
       self.STEER_MAX = 261  # higher than this faults the EPS
 
 
-STEER_THRESHOLD = 120
+STEER_THRESHOLD = 150
 
 RAM_DT = {CAR.RAM_1500_5TH_GEN, }
 RAM_HD = {CAR.RAM_HD_5TH_GEN, }
