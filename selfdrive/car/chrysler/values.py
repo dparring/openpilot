@@ -77,7 +77,7 @@ class CAR(Platforms):
   # Ram
   RAM_1500_5TH_GEN = ChryslerPlatformConfig(
     [ChryslerCarDocs("Ram 1500 2019-24", car_parts=CarParts.common([CarHarness.ram]))],
-    ChryslerCarSpecs(mass=3039., wheelbase=3.68, steerRatio=15, minSteerSpeed=14.5),
+    ChryslerCarSpecs(mass=3039., wheelbase=3.68, steerRatio=12, minSteerSpeed=14.5),
     dbc_dict('chrysler_ram_dt_generated', None),
   )
   RAM_HD_5TH_GEN = ChryslerPlatformConfig(
