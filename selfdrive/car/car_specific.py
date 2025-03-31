@@ -57,9 +57,9 @@ class CarSpecificEvents:
 
         # Low speed steer alert hysteresis logic
       if self.CP.carFingerprint in RAM_DT:
-        if CS.out.vEgo >= self.CP.minEnableSpeed:
+        if CS.vEgo >= self.CP.minEnableSpeed:
           self.low_speed_alert = False
-        if (self.CP.minEnableSpeed >= 14.5) and (CS.out.gearShifter != GearShifter.drive):
+        if (self.CP.minEnableSpeed >= 14.5) and (CS.gearShifter != GearShifter.drive):
           self.low_speed_alert = True
       else:
         if self.CP.minSteerSpeed > 0. and CS.vEgo < (self.CP.minSteerSpeed + 0.5):
