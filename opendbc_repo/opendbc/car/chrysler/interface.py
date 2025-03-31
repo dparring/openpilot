@@ -6,7 +6,6 @@ from opendbc.car.chrysler.radar_interface import RadarInterface
 from opendbc.car.chrysler.values import CAR, RAM_HD, RAM_DT, RAM_CARS, ChryslerFlags, ChryslerSafetyFlags
 from opendbc.car.interfaces import CarInterfaceBase
 
-ButtonType = structs.CarState.ButtonEvent.Type
 
 
 class CarInterface(CarInterfaceBase):
