@@ -1,7 +1,7 @@
 from opendbc.can.parser import CANParser
 from opendbc.can.can_define import CANDefine
 from opendbc.car import Bus, create_button_events, structs
-from opendbc.car.chrysler.values import DBC, STEER_THRESHOLD, RAM_CARS
+from opendbc.car.chrysler.values import DBC, STEER_THRESHOLD, RAM_CARS, ChryslerFlags
 from opendbc.car.common.conversions import Conversions as CV
 from opendbc.car.interfaces import CarStateBase
 
@@ -17,12 +17,14 @@ class CarState(CarStateBase):
     self.auto_high_beam = 0
     self.button_counter = 0
     self.lkas_car_model = -1
+    self.button_message = "CRUISE_BUTTONS_ALT" if CP.flags & ChryslerFlags.RAM_HD_ALT_BUTTONS else "CRUISE_BUTTONS"
 
     if CP.carFingerprint in RAM_CARS:
       self.shifter_values = can_define.dv["Transmission_Status"]["Gear_State"]
     else:
       self.shifter_values = can_define.dv["GEAR"]["PRNDL"]
 
+    self.prev_distance_button = 0
     self.distance_button = 0
 
   def update(self, can_parsers) -> structs.CarState:
@@ -31,8 +33,8 @@ class CarState(CarStateBase):
 
     ret = structs.CarState()
 
-    prev_distance_button = self.distance_button
-    self.distance_button = cp.vl["CRUISE_BUTTONS"]["ACC_Distance_Dec"]
+    self.prev_distance_button = self.distance_button
+    self.distance_button = cp.vl[self.button_message]["ACC_Distance_Dec"]
 
     # lock info
     ret.doorOpen = any([cp.vl["BCM_1"]["DOOR_OPEN_FL"],
@@ -102,9 +104,9 @@ class CarState(CarStateBase):
       ret.rightBlindspot = cp.vl["BSM_1"]["RIGHT_STATUS"] == 1
 
     self.lkas_car_model = cp_cam.vl["DAS_6"]["CAR_MODEL"]
-    self.button_counter = cp.vl["CRUISE_BUTTONS"]["COUNTER"]
+    self.button_counter = cp.vl[self.button_message]["COUNTER"]
 
-    ret.buttonEvents = create_button_events(self.distance_button, prev_distance_button, {1: ButtonType.gapAdjustCruise})
+    ret.buttonEvents = create_button_events(self.distance_button, self.prev_distance_button, {1: ButtonType.gapAdjustCruise})
 
     return ret
 
@@ -118,6 +120,7 @@ class CarState(CarStateBase):
 
   @staticmethod
   def get_can_parsers(CP):
+    button_message = "CRUISE_BUTTONS_ALT" if CP.flags & ChryslerFlags.RAM_HD_ALT_BUTTONS else "CRUISE_BUTTONS"
     pt_messages = [
       # sig_address, frequency
       ("ESP_1", 50),
@@ -125,7 +128,7 @@ class CarState(CarStateBase):
       ("ESP_6", 50),
       ("STEERING", 100),
       ("ECM_5", 50),
-      ("CRUISE_BUTTONS", 50),
+      (button_message, 50),
       ("STEERING_LEVERS", 10),
       ("ORC_1", 2),
       ("BCM_1", 1),
