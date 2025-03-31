@@ -204,7 +204,6 @@ static safety_config chrysler_init(uint16_t param) {
     .DAS_6            = 0xFA,   // LKAS HUD and auto headlight control from DASM
     .LKAS_COMMAND     = 0xA6,   // LKAS controls from DASM
     .CRUISE_BUTTONS   = 0xB1,   // Cruise control buttons
-    .CRUISE_BUTTONS_ALT = 0xB1,   // Cruise control buttons
   };
 
   static RxCheck chrysler_ram_dt_rx_checks[] = {
@@ -232,7 +231,6 @@ static safety_config chrysler_init(uint16_t param) {
 
   static const CanMsg CHRYSLER_RAM_DT_TX_MSGS[] = {
     {CHRYSLER_RAM_DT_ADDRS.CRUISE_BUTTONS, 2, 3, false},
-    {CHRYSLER_RAM_DT_ADDRS.CRUISE_BUTTONS_ALT, 2, 3, false},
     {CHRYSLER_RAM_DT_ADDRS.LKAS_COMMAND, 0, 8, true},
     {CHRYSLER_RAM_DT_ADDRS.DAS_6, 0, 8, false},
   };
