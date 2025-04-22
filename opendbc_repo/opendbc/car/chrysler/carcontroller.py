@@ -8,9 +8,7 @@ from opendbc.car.interfaces import CarControllerBase
 class CarController(CarControllerBase):
   def __init__(self, dbc_names, CP):
     super().__init__(dbc_names, CP)
-    self.CP = CP
     self.apply_torque_last = 0
-    self.frame = 0
 
     self.hud_count = 0
     self.last_lkas_falling_edge = 0
