@@ -68,5 +68,5 @@ def create_cruise_buttons(packer, CP, frame, bus, cancel=False, resume=False):
     "ACC_Resume": resume,
     "COUNTER": frame % 0x10,
   }
-  button_message = "CRUISE_BUTTONS_ALT" if CP.flags & ChryslerFlags.RAM_HD_ALT_BUTTONS else "CRUISE_BUTTONS"
-  return packer.make_can_msg(button_message, bus, values)
+  msg = "CRUISE_BUTTONS_ALT" if CP.flags & ChryslerFlags.RAM_HD_ALT_BUTTONS else "CRUISE_BUTTONS"
+  return packer.make_can_msg(msg, bus, values)
