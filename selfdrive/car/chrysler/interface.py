@@ -64,7 +64,7 @@ class CarInterface(CarInterfaceBase):
     elif candidate == CAR.RAM_HD_5TH_GEN:
       ret.steerActuatorDelay = 0.38
       ret.wheelbase = 3.785
-      ret.steerRatio = 19.61
+      ret.steerRatio = 23.61
       ret.mass = 3405.
       ret.minSteerSpeed = 16
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning, 1.0, False)
