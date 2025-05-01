@@ -38,14 +38,12 @@ class VehicleModel:
 
     self.cF_orig: float = CP.tireStiffnessFront
     self.cR_orig: float = CP.tireStiffnessRear
-    self.cF: float = CP.tireStiffnessFront
-    self.cR: float = CP.tireStiffnessRear
     self.update_params(1.0, CP.steerRatio)
 
   def update_params(self, stiffness_factor: float, steer_ratio: float) -> None:
     """Update the vehicle model with a new stiffness factor and steer ratio"""
-    # disabled for testing RAM HD self.cF: float = stiffness_factor * self.cF_orig
-    # disabled for testing RAM HD self.cR: float = stiffness_factor * self.cR_orig
+    self.cF: float = stiffness_factor * self.cF_orig
+    self.cR: float = stiffness_factor * self.cR_orig
     # disabled for testing RAM HD self.sR: float = steer_ratio
     return
 
