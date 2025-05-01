@@ -62,7 +62,7 @@ class CarInterface(CarInterfaceBase):
         ret.minSteerSpeed = 0.
 
     elif candidate == CAR.RAM_HD_5TH_GEN:
-      ret.steerActuatorDelay = 0.38
+      ret.steerActuatorDelay = 0.45
       ret.wheelbase = 3.785
       ret.steerRatio = 31.61
       ret.mass = 3405.
