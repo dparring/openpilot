@@ -63,10 +63,6 @@ class CarInterface(CarInterfaceBase):
 
     elif candidate == CAR.RAM_HD_5TH_GEN:
       ret.steerActuatorDelay = 0.4
-      ret.wheelbase = 3.785
-      ret.steerRatio = 31.61
-      ret.mass = 3405.
-      ret.minSteerSpeed = 16
       CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
 
       # Some RAM HD use Chrysler button address
