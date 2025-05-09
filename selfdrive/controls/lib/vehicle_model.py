@@ -41,8 +41,8 @@ class VehicleModel:
 
   def update_params(self, stiffness_factor: float, steer_ratio: float) -> None:
     """Update the vehicle model with a new stiffness factor and steer ratio"""
-    self.cF: float = stiffness_factor * self.cF_orig
-    self.cR: float = stiffness_factor * self.cR_orig
+    self.cF: float = 0.5
+    self.cR: float = 0.5
     self.sR: float = steer_ratio
 
   def steady_state_sol(self, sa: float, u: float, roll: float) -> np.ndarray:
