@@ -160,7 +160,7 @@ def main():
     params = {
       'carFingerprint': CP.carFingerprint,
       'steerRatio': CP.steerRatio,
-      'stiffnessFactor': 0.5,
+      'stiffnessFactor': 2.0,
       'angleOffsetAverageDeg': 0.0,
     }
     cloudlog.info("Parameter learner resetting to default values")
@@ -168,7 +168,7 @@ def main():
   if not REPLAY:
     # When driving in wet conditions the stiffness can go down, and then be too low on the next drive
     # Without a way to detect this we have to reset the stiffness every drive
-    params['stiffnessFactor'] = 0.5
+    params['stiffnessFactor'] = 2.0
 
   pInitial = None
   if DEBUG:
@@ -195,7 +195,7 @@ def main():
       P = np.sqrt(learner.kf.P.diagonal())
       if not all(map(math.isfinite, x)):
         cloudlog.error("NaN in liveParameters estimate. Resetting to default values")
-        learner = ParamsLearner(CP, CP.steerRatio, 0.5, 0.0)
+        learner = ParamsLearner(CP, CP.steerRatio, 2.0, 0.0)
         x = learner.kf.x
 
       angle_offset_average = clip(math.degrees(x[States.ANGLE_OFFSET].item()),
