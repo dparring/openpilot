@@ -63,7 +63,7 @@ class CarInterface(CarInterfaceBase):
 
     elif candidate == CAR.RAM_HD_5TH_GEN:
       ret.steerActuatorDelay = 0.4
-      CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
+      CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning, 1.0)
 
       # Some RAM HD use Chrysler button address
       if 570 not in fingerprint[0]:

@@ -3,7 +3,7 @@ from openpilot.common.conversions import Conversions as CV
 from opendbc.can.parser import CANParser
 from opendbc.can.can_define import CANDefine
 from openpilot.selfdrive.car.interfaces import CarStateBase
-from openpilot.selfdrive.car.chrysler.values import ChryslerFlags, DBC, STEER_THRESHOLD, RAM_CARS
+from openpilot.selfdrive.car.chrysler.values import ChryslerFlags, DBC, STEER_THRESHOLD, RAM_CARS, RAM_HD
 
 
 class CarState(CarStateBase):
@@ -70,7 +70,10 @@ class CarState(CarStateBase):
     ret.genericToggle = cp.vl["STEERING_LEVERS"]["HIGH_BEAM_PRESSED"] == 1
 
     # steering wheel
-    ret.steeringAngleDeg = cp.vl["STEERING"]["STEERING_ANGLE"] + cp.vl["STEERING"]["STEERING_ANGLE_HP"]
+    if self.CP.carFingerprint in RAM_HD:
+      ret.steeringAngleDeg = cp.vl["STEERING"]["STEERING_ANGLE"]
+    else:
+      ret.steeringAngleDeg = cp.vl["STEERING"]["STEERING_ANGLE"] + cp.vl["STEERING"]["STEERING_ANGLE_HP"]
     ret.steeringRateDeg = cp.vl["STEERING"]["STEERING_RATE"]
     ret.steeringTorque = cp.vl["EPS_2"]["COLUMN_TORQUE"]
     ret.steeringTorqueEps = cp.vl["EPS_2"]["EPS_TORQUE_MOTOR"]
