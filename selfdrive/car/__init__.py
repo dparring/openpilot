@@ -61,7 +61,7 @@ class VehicleDynamicsParams:
 # TODO: get actual value, for now starting with reasonable value for
 # civic and scaling by mass and wheelbase
 def scale_rot_inertia(mass, wheelbase):
-  return VehicleDynamicsParams.ROTATIONAL_INERTIA * mass * wheelbase ** 2 / (VehicleDynamicsParams.MASS * VehicleDynamicsParams.WHEELBASE ** 2)
+  return 5965 #VehicleDynamicsParams.ROTATIONAL_INERTIA * mass * wheelbase ** 2 / (VehicleDynamicsParams.MASS * VehicleDynamicsParams.WHEELBASE ** 2)
 
 
 # TODO: start from empirically derived lateral slip stiffness for the civic and scale by
