@@ -135,7 +135,6 @@ class CarInterfaceBase(ABC):
     ret.centerToFront = ret.wheelbase * platform.config.specs.centerToFrontRatio
     ret.minEnableSpeed = platform.config.specs.minEnableSpeed
     ret.minSteerSpeed = platform.config.specs.minSteerSpeed
-    ret.tireStiffnessFactor = 1.0
     ret.flags |= int(platform.config.flags)
 
     ret = cls._get_params(ret, candidate, fingerprint, car_fw, experimental_long, docs)
